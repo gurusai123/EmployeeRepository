@@ -1,9 +1,7 @@
 package com.practice.project.models;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,19 +10,19 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Address {
-	@Id
-	@NotNull(message = "")
-	@Pattern(regexp = "[0-9]{3,5}")
+//	@Id
+//	@NotNull(message = "")
+//	@Pattern(regexp = "[0-9]{3,5}")
 	private String id;
-	@NotNull(message = "")
+//	@NotNull(message = "")
 	private String streetName;
-	@NotNull(message = "")
+//	@NotNull(message = "")
 	private String city;
-	@NotNull(message = "")
+//	@NotNull(message = "")
 	private String state;
-	@NotNull(message = "")
-	@Pattern(regexp = "^[1-9]{6}")
+//	@NotNull(message = "")
+//	@Pattern(regexp = "^[1-9]{6}")
 	private String zipcode;
-	@NotNull(message = "")
+//	@NotNull(message = "")
 	private String country;
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,6 +21,7 @@ import com.practice.project.repos.EmployeeRepo;
 import com.practice.project.service.LoginCheck;
 
 @RestController
+@CrossOrigin
 public class EmployeeController {
 	@Autowired
 	EmployeeRepo repo;
@@ -41,7 +43,7 @@ public class EmployeeController {
 		return (repo.existsById(id));
 	}
 
-	@GetMapping(value = "/employee/byid/{id}")
+	@GetMapping(value = "/byid/{id}")
 	public ResponseEntity<Employee> getUserById(@PathVariable(name = "id") String id) {
 		if (employeeExists(id)) {
 			return (ResponseEntity.ok(repo.findById(id).get()));
@@ -50,34 +52,37 @@ public class EmployeeController {
 		}
 	}
 
-	@PatchMapping(value = "/employee/update")
+	@PatchMapping(value = "/update")
 	public void updateEmployee(@RequestBody Employee emp) {
 //		emp.setAddress(emp.getAddress());
 		// emp.setFirstName(emp.);
 		repo.save(emp);
 	}
 
-	@DeleteMapping(value = "/employee/delete")
+	@DeleteMapping(value = "/delete")
 	public void deleteById(@RequestBody Employee emp) {
 		repo.delete(emp);
 	}
 
-	@GetMapping(value = "/employee/{username}")
+	@GetMapping(value = "/{username}")
 	public Employee getByUserName(@PathVariable(name = "username") String username) {
 //		System.out.println(repo.findByUserName(username));
 		return (repo.findByUserName(username));
 	}
 
-	@SuppressWarnings("rawtypes")
+	
 	@PostMapping(value = "/login")
-	public ResponseEntity login(@RequestBody() Map<String, String> json) {
-
-//		System.out.println(json.get("UserName") + " " + json.get("password"));
-
+	public Employee login(@RequestBody() Map<String, String> json) {
 		if (check.login(json.get("UserName"), json.get("password"))) {
-			return new ResponseEntity<>("login sucessfull", HttpStatus.OK);
-		}
+			//System.out.println(json.get("UserName"));
+			String userName=json.get("UserName");
+			Employee emp=repo.findByUserName(userName);
+			//System.out.println(emp);
+			return emp;
 
-		return new ResponseEntity<>("login failed", HttpStatus.UNAUTHORIZED);
-	}
+			}
+			else {
+			return null;
+			}
+}
 }
