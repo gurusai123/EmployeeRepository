@@ -57,9 +57,9 @@ public class EmployeeController {
 		repo.save(emp);
 	}
 
-	@DeleteMapping(value = "/employee/delete/{id}")
-	public void deleteById(@PathVariable(name = "id") String id) {
-		repo.deleteById(id);
+	@DeleteMapping(value = "/employee/delete")
+	public void deleteById(@RequestBody Employee emp) {
+		repo.delete(emp);
 	}
 
 	@GetMapping(value = "/employee/{username}")
@@ -69,7 +69,7 @@ public class EmployeeController {
 	}
 
 	@SuppressWarnings("rawtypes")
-	@PostMapping(value = "/employee/login")
+	@PostMapping(value = "/login")
 	public ResponseEntity login(@RequestBody() Map<String, String> json) {
 
 //		System.out.println(json.get("UserName") + " " + json.get("password"));

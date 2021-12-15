@@ -15,17 +15,20 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
+import lombok.AllArgsConstructor;
+
 //import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
 @Data
 @Document
+@AllArgsConstructor
 public class Employee {
 //	@Id
 //	@NotNull(message = "")
 //	@Pattern(regexp = "[0-9]{3,5}")
-	private String id;
+	private final String id;
 //	@NotNull(message = "")
 //	@Pattern(regexp = "[A-Za-z]")
 //	@Size(min = 3, max = 20)
@@ -35,17 +38,17 @@ public class Employee {
 //	@Size(min = 3, max = 20)
 	private String lastName;
 	@DBRef
-	@Autowired
 	private Address address;
 //	@NotNull(message = "")
 //	@Pattern(regexp = "[A-Za-z0-9@_]")
 	@UniqueElements
-	private String userName;
+	private final String userName;
 //	@NotNull(message = "")
 //	@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
 //	@JsonProperty(access = Access.WRITE_ONLY)
-	private String password;
+	private final String password;
 	private String company;
 	private String designation;
 	private Date DOB; 
+//	private boolean isAdmin;
 }

@@ -5,10 +5,12 @@ import javax.validation.constraints.Pattern;
 
 import org.springframework.data.annotation.Id;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 
 @Data
+@AllArgsConstructor
 public class Address {
 	@Id
 	@NotNull(message = "")
