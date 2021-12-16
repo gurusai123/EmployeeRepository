@@ -1,8 +1,5 @@
 package com.practice.project.models;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Field;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

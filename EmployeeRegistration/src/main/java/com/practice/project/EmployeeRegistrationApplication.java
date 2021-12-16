@@ -14,11 +14,12 @@ import com.practice.project.models.Employee;
 import com.practice.project.repos.EmployeeRepo;
 
 @SpringBootApplication
+//@EnableWebMvc
 public class EmployeeRegistrationApplication {
 	@Autowired
 	EmployeeRepo repo;
 
-	
+
 	@PostConstruct
 	public void preLoadMongo() throws Exception {
 		Address address = new Address("1", "aa", "bb", "cc", "ee", "ff");
