@@ -23,7 +23,7 @@ public class EmployeeRegistrationApplication {
 	@PostConstruct
 	public void preLoadMongo() throws Exception {
 		Address address = new Address("1", "aa", "bb", "cc", "ee", "ff");
-		Employee emp = new Employee("1", "admin", "admin", address, "admin", "abcd", "CTS", "admin", new Date());
+		Employee emp = new Employee("1", "admin", "admin", "admin@cts.com", address, "admin", "abcd", "CTS", "admin", new Date());
 		repo.save(emp);
 	}
 

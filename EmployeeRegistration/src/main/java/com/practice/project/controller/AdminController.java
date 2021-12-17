@@ -1,5 +1,7 @@
 package com.practice.project.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +18,7 @@ import com.practice.project.repos.EmployeeRepo;
 public class AdminController {
 	@Autowired
 	EmployeeRepo repo;
+	Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
 	@DeleteMapping(value = "/admin/delete/{id}")
 	public void deleteById(@PathVariable(name = "id") String id) {
@@ -24,8 +27,13 @@ public class AdminController {
 
 	@PutMapping(value = "/admin/update")
 	public Employee update(@RequestBody Employee emp) {
-		Employee employee = repo.save(emp);
-		return employee;
+		try {
+			Employee employee = repo.save(emp);
+			return employee;
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return (null);
+		}
 	}
 
 }

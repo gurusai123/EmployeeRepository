@@ -11,3 +11,5 @@
 2021-12-16 19:11:44.968  INFO 22392 --- [main] c.p.p.EmployeeRegistrationApplication    : Started EmployeeRegistrationApplication in 4.471 seconds (JVM running for 5.277)
 2021-12-16 19:12:09.628  INFO 22392 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2021-12-16 19:13:15.102 ERROR 22392 --- [http-nio-8080-exec-4] c.p.p.controller.EmployeeController      : E11000 duplicate key error collection: mydb.employee index: userName dup key: { userName: "uvw" }; nested exception is com.mongodb.MongoWriteException: E11000 duplicate key error collection: mydb.employee index: userName dup key: { userName: "uvw" }
+2021-12-16 19:33:02.534  INFO 22392 --- [http-nio-8080-exec-2] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 489 ms
+2021-12-16 19:35:52.894  INFO 22392 --- [RMI TCP Connection(33)-127.0.0.1] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:3, serverValue:227}] to localhost:27017 because the pool has been closed.
