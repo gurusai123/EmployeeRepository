@@ -7,10 +7,13 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Address {
+	public Address() {
+		// TODO Auto-generated constructor stub
+	}
 //	@Id
 //	@NotNull(message = "")
 //	@Pattern(regexp = "[0-9]{3,5}")
-	private String id;
+	//private String id;
 //	@NotNull(message = "")
 	private String streetName;
 //	@NotNull(message = "")

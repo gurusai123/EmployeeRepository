@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.practice.project.models.Employee;
 import com.practice.project.repos.EmployeeRepo;
 
+import io.swagger.v3.oas.annotations.Hidden;
+
 @RestController
 @CrossOrigin
+@Hidden
 public class AdminController {
 	@Autowired
 	EmployeeRepo repo;

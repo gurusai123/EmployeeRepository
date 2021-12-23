@@ -1,5 +1,7 @@
 package com.practice.project.controller;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +20,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.practice.project.models.Employee;
 import com.practice.project.repos.EmployeeRepo;
+import com.practice.project.service.ImageService;
 import com.practice.project.service.LoginCheck;
 @RestController
 @CrossOrigin
@@ -29,10 +36,15 @@ public class EmployeeController {
 	EmployeeRepo repo;
 	@Autowired
 	LoginCheck check;
+	@Autowired
+	ImageService img;
+	
     Logger logger = LoggerFactory.getLogger(EmployeeController.class); 
-	@PostMapping(value = "/employee")
+	@Transactional
+    @PostMapping(value = "/employee")
 	public Employee createProduct(@RequestBody Employee emp) {
 		try {
+			//addPhoto(emp.getTitle(),emp.getImage())	
 		return (repo.save(emp));
 		}
 		catch(Exception e) {
@@ -68,6 +80,7 @@ public class EmployeeController {
 	}
 
 	@PutMapping(value = "/update")
+	@Transactional
 	public Employee updateEmployee(@RequestBody Employee emp) {
 		try {
 			return(repo.save(emp));
@@ -79,6 +92,7 @@ public class EmployeeController {
 				}
 
 	@DeleteMapping(value = "/employee/delete")
+	@Transactional
 	public void deleteById(@RequestBody Employee emp) {
 		repo.delete(emp);
 	}
@@ -92,6 +106,7 @@ public class EmployeeController {
 	
 
 	@PostMapping(value = "/login")
+	@Transactional
 	public Employee login(@RequestBody() Map<String, String> json) {
 		if (check.login(json.get("UserName"), json.get("password"))) {
 			// System.out.println(json.get("UserName"));
@@ -103,5 +118,23 @@ public class EmployeeController {
 		} else {
 			return null;
 		}
+	}
+	
+	@PostMapping("/photos/add/{id}")
+	@Transactional
+	public String addPhoto(@RequestParam("title") String title, 
+	  @RequestBody() MultipartFile image,@PathVariable("id") String id) 
+	  throws IOException {
+	    String abcd = img.addImage(title, image,id);
+	    return "redirect:/photos/" + abcd;
+	}
+	@GetMapping("/photos/{id}")
+	public Object getPhoto(@PathVariable(name = "id") String id, Model model) {
+		Employee emp = img.getImage(id);
+		System.out.println(emp.getFirstName());
+	    model.addAttribute("title", emp.getTitle());
+	    model.addAttribute("image", 
+	      Base64.getEncoder().encodeToString(emp.getImage().getData()));
+	    return model.getAttribute("image");
 	}
 }
